@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="refresh" content="3600">
+<title>Restroom Renovation — Staff Notice — HACLB</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cyan:        #05c3de;
+    --cyan-dark:   #048aa0;
+    --cyan-deeper: #036578;
+    --cyan-soft:   #e6f9fc;
+    --cyan-softer: #f3fcfd;
+    --red:         #c8202d;
+    --red-dark:    #9c1822;
+    --gold:        #f79f1b;
+    --gold-deep:   #d9850e;
+    --gold-soft:   #fef8ec;
+    --green:       #017141;
+    --paper:       #fafaf7;
+    --paper-warm:  #f5f3ed;
+    --ink:         #1a2530;
+    --ink-soft:    #4a5766;
+    --ink-muted:   #7a8695;
+    --rule:        #e4e2db;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    background: var(--paper);
+    font-family: 'Inter', sans-serif;
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .stage {
+    width: 100vw; height: 100vh;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    background: var(--paper);
+    position: relative;
+  }
+
+  .stage::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 45% at 85% 10%, var(--cyan-softer) 0%, transparent 55%),
+      radial-gradient(ellipse 50% 40% at 8% 88%, rgba(247,159,27,0.07) 0%, transparent 60%),
+      radial-gradient(ellipse 35% 30% at 50% 55%, rgba(1,113,65,0.04) 0%, transparent 55%);
+    pointer-events: none; z-index: 0;
+  }
+
+  .stage::after {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='250' height='250'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.4 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/></svg>");
+    mix-blend-mode: multiply; opacity: 0.5;
+    pointer-events: none; z-index: 0;
+  }
+
+  /* ===== HEADER ===== */
+  .header {
+    position: relative; z-index: 2;
+    height: 10vh; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 3.5vw;
+    border-bottom: 0.1vw solid var(--rule);
+  }
+  .header-logo { height: 6vh; width: auto; }
+  .header-right { display: flex; align-items: center; gap: 0.9vw; }
+  .pulse {
+    width: 0.6vw; height: 0.6vw;
+    background: var(--cyan); border-radius: 50%;
+    animation: ping 2.4s ease-out infinite;
+  }
+  @keyframes ping {
+    0%   { box-shadow: 0 0 0 0 rgba(5,195,222,0.65); }
+    100% { box-shadow: 0 0 0 1.5vw rgba(5,195,222,0); }
+  }
+  .header-right .txt {
+    font-size: 0.75vw; font-weight: 700;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  /* ===== MAIN ===== */
+  .main {
+    position: relative; z-index: 2;
+    flex: 1;
+    display: flex; flex-direction: column;
+    justify-content: center;
+    padding: 3vh 5vw 2.5vh;
+    gap: 2.8vh;
+    min-height: 0;
+  }
+
+  .eyebrow {
+    display: flex; align-items: center; gap: 0.7vw;
+    animation: fadeUp 0.6s 0.1s both cubic-bezier(0.22,1,0.36,1);
+  }
+  .eyebrow-dot {
+    width: 0.55vw; height: 0.55vw;
+    border-radius: 50%; background: var(--cyan);
+  }
+  .eyebrow span {
+    font-size: 0.78vw; font-weight: 700;
+    letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  .headline {
+    font-family: 'Fraunces', serif;
+    font-size: 4vw; font-weight: 700;
+    line-height: 1.05; letter-spacing: -0.02em;
+    color: var(--ink);
+    animation: fadeUp 0.7s 0.18s both cubic-bezier(0.22,1,0.36,1);
+  }
+  .headline em {
+    font-style: italic; font-weight: 400;
+    color: var(--red);
+  }
+
+  .rule-line {
+    width: 5vw; height: 0.18vw;
+    background: linear-gradient(90deg, var(--cyan) 0%, transparent 100%);
+    border-radius: 1vw;
+    animation: fadeUp 0.6s 0.22s both cubic-bezier(0.22,1,0.36,1);
+  }
+
+  /* Date cards row */
+  .date-row {
+    display: flex; gap: 1.6vw;
+    animation: fadeUp 0.7s 0.28s both cubic-bezier(0.22,1,0.36,1);
+  }
+
+  .date-card {
+    flex: 1;
+    background: #fff;
+    border: 0.12vw solid var(--rule);
+    border-radius: 0.8vw;
+    padding: 1.6vh 1.6vw;
+    display: flex; flex-direction: column; gap: 0.6vh;
+    box-shadow: 0 0.6vh 2vh rgba(26,37,48,0.06);
+  }
+
+  .date-card.start { border-top: 0.3vw solid var(--gold); }
+  .date-card.end   { border-top: 0.3vw solid var(--green); }
+
+  .date-card .dc-label {
+    font-size: 0.72vw; font-weight: 700;
+    letter-spacing: 0.28em; text-transform: uppercase;
+  }
+  .date-card.start .dc-label { color: var(--gold-deep); }
+  .date-card.end   .dc-label { color: var(--green); }
+
+  .date-card .dc-value {
+    font-family: 'Fraunces', serif;
+    font-size: 1.8vw; font-weight: 600; line-height: 1.1;
+    color: var(--ink);
+  }
+  .date-card .dc-sub {
+    font-size: 1vw; font-weight: 500;
+    color: var(--ink-soft);
+  }
+
+  /* Action callout card */
+  .action-card {
+    display: flex; align-items: center; gap: 1.4vw;
+    background: #fff;
+    border: 0.14vw solid rgba(3,101,120,0.2);
+    border-radius: 1vw;
+    padding: 2.2vh 2vw;
+    box-shadow: 0 1.2vh 2.8vh rgba(3,101,120,0.09);
+    animation: fadeUp 0.8s 0.36s both cubic-bezier(0.22,1,0.36,1);
+  }
+
+  .action-icon {
+    flex-shrink: 0;
+    width: 3.6vw; height: 3.6vw;
+    border-radius: 50%;
+    background: linear-gradient(160deg, var(--cyan) 0%, var(--cyan-deeper) 100%);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff;
+    box-shadow: 0 0.6vh 1.4vh rgba(3,101,120,0.25);
+  }
+  .action-icon svg {
+    width: 1.9vw; height: 1.9vw; stroke-width: 2;
+    fill: none; stroke: currentColor;
+    stroke-linecap: round; stroke-linejoin: round;
+  }
+
+  .action-text { display: flex; flex-direction: column; gap: 0.5vh; }
+  .action-label {
+    font-size: 0.76vw; font-weight: 700;
+    letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--cyan-deeper);
+  }
+  .action-body {
+    font-family: 'Fraunces', serif;
+    font-size: 1.55vw; font-weight: 600; line-height: 1.25;
+    color: var(--ink);
+  }
+  .action-sub {
+    font-size: 1vw; font-weight: 500;
+    color: var(--ink-soft);
+  }
+
+  /* ===== FOOTER ===== */
+  .footer {
+    position: relative; z-index: 2;
+    height: 5.5vh; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 3.5vw;
+    border-top: 0.1vw solid var(--rule);
+    background: rgba(245,243,237,0.5);
+    backdrop-filter: blur(6px);
+  }
+  .footer-left {
+    display: flex; align-items: center; gap: 1vw;
+    font-size: 0.7vw; font-weight: 600;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+  .color-dots { display: inline-flex; gap: 0.4vw; align-items: center; }
+  .color-dots span { width: 0.55vw; height: 0.55vw; border-radius: 50%; }
+  .color-dots span:nth-child(1) { background: var(--cyan); }
+  .color-dots span:nth-child(2) { background: var(--cyan-deeper); }
+  .color-dots span:nth-child(3) { background: var(--red); }
+  .color-dots span:nth-child(4) { background: var(--gold); }
+  .color-dots span:nth-child(5) { background: var(--green); }
+  .footer-right {
+    font-size: 0.68vw; font-weight: 600;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--ink-muted);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(1.5vh); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+<div class="stage">
+
+  <header class="header">
+    <img class="header-logo"
+      src="https://raw.githubusercontent.com/reneordona/hawaiting/6ab2e95f6b654a5b0f2e2d7eed48b3eccc6a0dca/Housing%20Authority%20Logo%20-%20Landscape%20Version-72dpi%20for%20ScreenAndWeb%20-%20Transparent%20BG.png"
+      alt="Housing Authority of the City of Long Beach">
+    <div class="header-right">
+      <div class="pulse"></div>
+      <div class="txt">Staff Notice</div>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <div class="eyebrow">
+      <div class="eyebrow-dot"></div>
+      <span id="eyebrow-label">Facilities Update</span>
+    </div>
+
+    <div class="headline" id="headline">
+      <!-- injected by JS -->
+    </div>
+
+    <div class="rule-line"></div>
+
+    <div class="date-row">
+      <div class="date-card start">
+        <div class="dc-label">Restrooms Close</div>
+        <div class="dc-value">Friday, June 26, 2026</div>
+        <div class="dc-sub">Lobby men's &amp; women's restrooms</div>
+      </div>
+      <div class="date-card end">
+        <div class="dc-label">Expected to Reopen</div>
+        <div class="dc-value">Friday, August 7, 2026</div>
+        <div class="dc-sub">Date may change</div>
+      </div>
+    </div>
+
+    <div class="action-card">
+      <div class="action-icon">
+        <svg viewBox="0 0 24 24"><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"/><path d="M9 17h6"/><path d="M9 13h6"/></svg>
+      </div>
+      <div class="action-text">
+        <div class="action-label" id="action-label">Staff Action Required</div>
+        <div class="action-body" id="action-body">Please direct all visitors to the restrooms located in Pod B.</div>
+        <div class="action-sub" id="action-sub">Inform guests before they attempt to use the lobby restrooms.</div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <div class="footer-left">
+      <div class="color-dots"><span></span><span></span><span></span><span></span><span></span></div>
+      <span>Housing Authority of the City of Long Beach</span>
+    </div>
+    <div class="footer-right">Facilities &amp; Property Management</div>
+  </footer>
+
+</div>
+
+<script>
+  const RENOVATION_START = new Date('2026-06-26T00:00:00');
+
+  function applyState() {
+    const now = new Date();
+    const isActive = now >= RENOVATION_START;
+    const headline = document.getElementById('headline');
+    const actionLabel = document.getElementById('action-label');
+    const actionBody = document.getElementById('action-body');
+    const actionSub = document.getElementById('action-sub');
+    const eyebrowLabel = document.getElementById('eyebrow-label');
+
+    if (isActive) {
+      // Renovation is happening now
+      eyebrowLabel.textContent = 'Facilities Notice';
+      headline.innerHTML = 'Lobby Restrooms<br><em>Temporarily Closed</em>';
+      actionLabel.textContent = 'Staff Action Required';
+      actionBody.textContent = 'Please direct all visitors to the restrooms located in Pod B.';
+      actionSub.textContent = 'Let visitors know before they walk to the lobby restrooms.';
+    } else {
+      // Upcoming — not yet in effect
+      eyebrowLabel.textContent = 'Upcoming Facilities Notice';
+      headline.innerHTML = 'Lobby Restrooms<br><em>Will Be Temporarily Closed</em>';
+      actionLabel.textContent = 'Heads Up — Effective June 26';
+      actionBody.textContent = 'Beginning June 26, please direct all visitors to the restrooms in Pod B.';
+      actionSub.textContent = 'Share this with your team so staff are ready before the closure begins.';
+    }
+  }
+
+  applyState();
+</script>
+</body>
+</html>
